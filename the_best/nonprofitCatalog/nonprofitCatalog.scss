@@ -1,0 +1,104 @@
+@media (max-width: 600px){
+  #nonprfot-catalog {
+    #map_canvas{
+      display:flex;
+    }
+  }
+}
+
+#nonprfot-catalog {
+  #types-category > md-input-container{
+    min-width:150px;
+  }
+  #nonprfot-catalog-list > div > md-list > md-item > md-card > md-card-content{
+    padding: 8px 16px 8px 16px;
+    div{
+      width: 100%;
+    }
+    img{
+      max-width: 100px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  #nonprfot-catalog-list > div > h4{
+    margin-top: 10px;
+  }
+  #nonprfot-catalog-sidebar
+  {
+    background-color: white;
+    color:black;
+    md-toolbar > h1 {
+      color:black;
+    }
+    md-toolbar > button > md-icon {
+      margin-bottom: 0px;
+    }
+    md-content{
+      background-color: white;
+    }
+  }
+
+
+  div > md-list > md-item > md-card {
+  }
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #types-gender {
+   md-input-container{
+     margin-bottom: 0px;
+   }
+  }
+  #sidebar-found-nonprofits{
+    margin-top: 10px;
+  }
+}
+#types-condition-option{
+  width: 150px;
+}
+.site-header-third {
+  background-color: rgb(83, 163, 152);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  .header-inner-third {
+    div {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+}
+#content{
+  flex: 1;
+}
+#footer{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#nonprfot-catalog-list  md-item md-card{
+  min-width: 250px;
+  min-height: 150px;
+  margin-top: 16px;
+  margin-bottom: 0px;
+  md-card-content{
+    span > div{
+      color: rgba(0, 0, 0, 0.67);
+    }
+  }
+
+}
+
+#nonprfot-catalog-list md-item {
+  width: 100%;
+}
+
+#nonprfot-catalog-sidebar > md-content{
+  padding-top: 0px;
+}
+#nonprfot-catalog-sidebar > md-toolbar{
+  padding-bottom: 10px;
+  padding-top: 25px;
+  padding-left: 20px;
+}

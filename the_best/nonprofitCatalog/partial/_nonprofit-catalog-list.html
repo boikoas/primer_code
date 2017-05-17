@@ -1,0 +1,64 @@
+<div class="result-list">
+    <md-progress-linear flex ng-disabled="vm.loaded == true"></md-progress-linear>
+    <h4 ng-show="vm.nonprofitsLength > 0"
+        layout="row"
+        layout-lg="column"
+        layout-md="column"
+        layout-align="space-between center"
+        layout-align-lg="center left"
+        layout-align-md="center left">
+        <div> We found
+            <ng-pluralize count=" vm.nonprofitsLength"
+                          when-one=" {{ vm.nonprofitsLength}} nonprofit"
+                          when-other=" {{ vm.nonprofitsLength}} nonprofits"
+            >
+            </ng-pluralize>
+        </div>
+        <div hide-lg hide-md hide-sm ng-click="vm.openSideNav()">Open Filters</div>
+    </h4>
+    <md-list layout-md="column"
+             layout-align-md="center center"
+             layout-lg="column"
+             layout-align-lg="center center"
+             ng-repeat="currentNonprofit in vm.nonprofits">
+        <md-item class="search-item"
+                 layout-lg="row"
+                 layout-align-lg="space-between center"
+                 layout-md="row"
+                 layout-align-md="space-between center"
+        >
+            <md-card md-whiteframe="9"
+                     flex-lg="45"
+                     flex-md="45"
+                     class="clickable"
+                     ui-sref="index.nonprofit({slug: nonprofit.slug})"
+                     ng-repeat="nonprofit in currentNonprofit">
+                <md-card-content layout="column" layout-align="start start">
+                         <span class="item-title">
+                            <div class="md-headline">{{nonprofit.organization_name}}</div>
+	                    </span>
+                    <div layout="row" layout-align="start start"
+                         class="autocomplete-results">
+                        <img ng-src="{{nonprofit.logo ? nonprofit.logo : 'assets/img/doniifant-icon.jpg'}}"
+                             class="search-item-logo">
+
+                        <div flex>
+                            <div layout="column">
+                                <div class="item-metadata">
+                                    <p ng-repeat="area in nonprofit.issue_areas">{{area.name}}{{$last ? '' : ', '}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </md-item>
+        <md-item ng-show="vm.nonprofitsLength == 0">
+            <h3>Your search did not return any results</h3>
+            <ul>
+                <li>Check for spelling errors</li>
+                <li>Try to filter by categories</li>
+            </ul>
+        </md-item>
+    </md-list>
+</div>

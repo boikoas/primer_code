@@ -1,0 +1,117 @@
+<div class="widgetEdit-header clearfix">
+    <h3 class="widgetEdit-title" ng-if="!vm.dataSource">
+
+        <div>
+            <i class="fa fa-plus margin-right-10"></i>{{'WIDGET.ADDING' | translate}}
+        </div>
+
+    </h3>
+    <hr>
+</div>
+<div class="mark-body">
+
+    <form name="widgetForm"
+          id="widget-edit"
+          class="form-horizontal input-width widget-form"
+          server-form url="{{vm.url}}"
+          method="{{vm.method}}"
+          on-success="onSuccess"
+
+    >
+        <div class="aside-body">
+            <div class="widget-form-body">
+                <div id="widget-edit-data">
+
+
+                    <form-field ng-model="widget.dataSource" id="widget-form-edit" name="dataSource"
+                                template="oi-select-vertical"
+                                oi-options="dataSource._id as dataSource.name for dataSource in vm.dataSources.items"
+                                oi-select-options="{dropdownFilter: 'dataSourceDropdown'}"
+                                ng-change="applyNameByDataSource()"
+                                placeholder="{{'_DATA_SOURCE_.EMPTY' | translate}}"
+                                ng-hide="vm.dataSource"
+                    >
+                        <label>{{'DATA_SOURCE' | translate}}:</label>
+                    </form-field>
+                    <form-field ng-hide="vm.dataSource" ng-model="widget.name" name="name" type="text"
+                                template="input-vertical">
+                        <label>{{'NAME' | translate}}:</label>
+                    </form-field>
+
+
+                    <div class="widget-main-settings">
+                        <div class="margin-bottom-10"><label class="control-label">{{'WIDGET.TYPE.LABEL' |
+                            translate}}:</label></div>
+                        <div class="widget-types-wrap clearfix">
+                            <label class="pull-left text-center" ng-repeat="widgetType in vm.widgetTypes">
+                                <input type="radio"
+                                       name="type"
+                                       value="{{widgetType}}"
+                                       ng-model="widget.type"
+                                       ng-change="vm.onWidgetTypeChange()">
+                                <i ng-class="{
+                                     'checked': widget.type == widgetType,
+                                     'icon icon-0006-widget-leader-list': widgetType == 'LEAD_LIST',
+                                     'icon icon-0003-widget-funnel': widgetType == 'BAR',
+                                     'icon icon-0007-widget-line': widgetType == 'LINE_CHART',
+                                     'icon icon-0008-widget-line-area': widgetType == 'LINE_AREA_CHART',
+                                     'icon icon-0011-widget-single-value': widgetType == 'SINGLE_VALUE',
+                                     'icon icon-0016-widget-text': widgetType == 'TEXT',
+                                     'icon icon-0009-widget-pie-chart': widgetType == 'PIE_CHART',
+                                     'icon icon-0002-widget-donut-chart': widgetType == 'DONUT_CHART',
+                                     'icon icon-0012-widget-spline': widgetType == 'SPLINE_CHART',
+                                     'icon icon-0013-widget-spline-area': widgetType == 'SPLINE_AREA_CHART',
+                                     'icon icon-0014-widget-step': widgetType == 'STEP_CHART',
+                                     'icon icon-0015-widget-step-area': widgetType == 'STEP_AREA_CHART',
+                                     'icon icon-0010-widget-scatter': widgetType == 'SCATTER_CHART',
+                                     'icon icon-0001-widget-bar': widgetType == 'BAR_CHART'
+                                     }"></i>
+                                <span>{{'WIDGET.TYPE.'+ widgetType | translate}}</span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="widget-secondary-settings">
+                        <form-field ng-model="widget.sizeKey" template="oi-select-vertical"
+                                    oi-options="size.key as size.key for size in vm.widgetSizes"
+                                    ng-change="vm.applySize()"
+                                    placeholder="{{'WIDGET.CHOOSE_SIZE' | translate}}">
+                            <label>{{'WIDGET.SIZE' | translate}}:</label>
+                        </form-field>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label">{{'WIDGET.DASHBOARD' | translate}}:</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <oi-select ng-model="widget.dashboard"
+                                           name="dashboard"
+                                           template="oi-select-vertical"
+                                           oi-options="dashboard._id as dashboard.name for dashboard in vm.dashboards.items"
+                                           placeholder="{{'WIDGET.CHOOSE_DASHBOARD' | translate}}"
+                                >
+                                </oi-select>
+                                <span class="text-danger">{{widgetForm.dashboard.$server}}</span>
+                            </div>
+                        </div>
+                        <widget-settings></widget-settings>
+
+                        <input type="hidden" name="size" ng-model="widget.size">
+                        <input type="hidden" name="position" ng-model="widget.position">
+                        <input type="hidden" name="settings" ng-model="widget.settings">
+                        <input type="hidden" name="dashboard" ng-model="widget.dashboard">
+                    </div>
+                </div>
+
+
+                <div id="widget-edit-preview" class="widget-preview"></div>
+            </div>
+            <div class="row margin-top-20">
+                <div class="col-sm-12 text-right">
+                    <button ng-hide="true" id="save-widget" class="btn btn-primary margin-right-10">
+                        <i class=" margin-right-10"></i>{{'SAVE' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

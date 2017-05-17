@@ -1,0 +1,29 @@
+<div class="page-header">
+    <h1>{{'_TAGS_.TITLE' | translate}}</h1>
+</div>
+
+<pbs-grid grid-descriptor="TagsGridDescriptor"
+          show-add-button="true" show-filters="false" show-columns-panel="true">
+    <table>
+        <tr ng-repeat="row in $data">
+            <td ng-repeat="col in $columns"
+                ng-class="{
+                    'col-xs-1': col.field == 'actions' || col.field == 'id',
+                    'text-center': col.field == 'actions' || col.field == 'id'
+                }">
+                <div ng-switch="col.field">
+                    <div ng-switch-when="actions">
+                        <pbs-grid-edit-button></pbs-grid-edit-button>
+                        <pbs-grid-delete-button></pbs-grid-delete-button>
+                    </div>
+                    <div ng-switch-when="tagType">
+                        {{row[col.field].name}}
+                    </div>
+                    <div ng-switch-default>
+                        {{row[col.field]}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</pbs-grid>

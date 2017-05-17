@@ -1,0 +1,83 @@
+<div id="nonprfot-catalog" class="container-fluid" layout="row" layout-xs="column" layout-sm="column"  layout-md="column" layout-align="space-around stretch">
+    <md-sidenav
+            class="md-sidenav-left"
+            id="nonprfot-catalog-sidebar"
+            md-component-id="nonprofit-catalog-sidenav"
+            md-whiteframe="4"
+            hide
+            show-xs
+            >
+        <md-toolbar class="md-theme-indigo" >
+            <h3 class="md-toolbar-tools top-left">Filter options</h3>
+            <md-button ng-click="vm.closeSideNav()" class="md-fab md-raised md-mini md-fab-top-right" aria-label="open menu">
+                <md-icon md-font-icon="close"></md-icon>
+            </md-button>
+        </md-toolbar>
+        <md-content layout-padding>
+            <nonprofit-catalog-filter
+                    id="nonprfot-catalog-filter-sidenav"
+                    filter="vm.filter"
+                    filter-types="vm.filterTypes"
+                    issue-areas="vm.issueAreas"
+                    nonprofits-length="vm.nonprofitsLength"
+                    on-filters-change="vm.onFiltersChange($event)"
+            >
+            </nonprofit-catalog-filter>
+        </md-content>
+
+    </md-sidenav>
+    <div
+        flex-lg="60"
+        flex-md="60"
+        flex-sm="50"
+        layout="row"
+        layout-align="space-around stretch"
+    >
+        <nonprofit-catalog-filter
+                id="nonprfot-catalog-filter"
+                layout-padding
+                flex="30"
+                flex-lg="30"
+                filter="vm.filter"
+                filter-types="vm.filterTypes"
+                issue-areas="vm.issueAreas"
+                nonprofits-length="vm.nonprofitsLength"
+                on-filters-change="vm.onFiltersChange($event)"
+                hide-xs
+        >
+        </nonprofit-catalog-filter>
+
+        <nonprofit-catalog-list
+                id="nonprfot-catalog-list"
+                layout-padding
+                flex="80"
+                flex-lg="70"
+                flex-xs="100"
+                nonprofits="vm.nonprofits"
+                nonprofits-length="vm.nonprofitsLength"
+                loaded="vm.loaded"
+        >
+        </nonprofit-catalog-list>
+    </div>
+
+
+    <div id="map_canvas"
+         layout-padding
+         ng-controller="MapCtrl"
+         flex-lg="30"
+         flex-md="30"
+         show-xs
+
+    >
+
+        <ui-gmap-google-map ng-if="map" center="map.center" zoom="map.zoom" draggable="true"
+                            options="options" bounds="map.bounds">
+            <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"
+                             click="onClick" fit="true">
+                <ui-gmap-windows show="show">
+                    <div ng-non-bindable>{{title}}</div>
+                </ui-gmap-windows>
+            </ui-gmap-markers>
+        </ui-gmap-google-map>
+    </div>
+</div>

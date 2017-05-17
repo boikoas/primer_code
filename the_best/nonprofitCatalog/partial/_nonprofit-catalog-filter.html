@@ -1,0 +1,103 @@
+<div>
+    <h3 hide-xs>Filter options</h3>
+    <div id="types-category">
+        <label class="text-left">Category</label><br>
+        <md-input-container>
+            <md-select ng-change="vm.changeFilter()" aria-label="categories" ng-model="vm.filter.category">
+                <md-optgroup ng-repeat="currentCategories in vm.filterTypes.categories"
+                             label="{{currentCategories.name}}">
+                    <md-option ng-repeat="category in currentCategories.categories"
+                               aria-label="{{category.name}}" ng-value="category">
+                        {{category.name}}
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div id="types-gender">
+
+        <md-input-container>
+            <label for="types-gender-checkbox">Who is it for ?</label>
+            <md-radio-group id="types-gender-checkbox"
+                            ng-change="vm.changeFilter()"
+                            ng-model="vm.filter.gender">
+                <md-radio-button ng-repeat="gender in vm.filterTypes.typesGender"
+                                 ng-value="gender.value"
+                                 aria-label="{{gender.name}}">
+                    {{gender.name}}
+                </md-radio-button>
+            </md-radio-group>
+            <div ng-show="vm.filter.gender=='Child'" id="gender-child-menu">
+                <div ng-repeat="child in vm.filterTypes.childs">
+                    <md-menu>
+                        <md-button ng-click="vm.openMenu($mdMenu, $event)">
+                            {{child.name}}
+                        </md-button>
+                        <md-menu-content>
+                            <md-menu-item ng-repeat="age in vm.filterTypes.allAges">
+                                <md-button ng-click="vm.setAgeToChild(child.value, age)">
+                                    {{age}}
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </md-input-container>
+    </div>
+    <div id="types-condition">
+        <md-input-container>
+            <label for="types-condition-option">What condition is it in? </label>
+            <md-select ng-change="vm.changeFilter()"
+                       id="types-condition-option"
+                       ng-model="vm.filter.condition"
+                       aria-label="conditions">
+                <md-option ng-repeat="condition in vm.filterTypes.conditions" ng-value="condition">
+                    {{condition}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <div id="types-issue">
+        <label class="text-left">Issue Areas</label><br>
+        <div class="issueAreaWrapper">
+            <md-chips ng-model="vm.issueAreas"
+                      md-autocomplete-snap
+                      md-on-add="vm.changeFilter()"
+                      md-on-remove="vm.changeFilter()"
+
+            >
+                <md-autocomplete
+                        md-search-text="query"
+                        md-items="item in vm.getMatches(query)"
+                        md-item-text="item.name"
+                        placeholder="Add issue area"
+                        md-min-length="0"
+                        md-no-cache="true"
+                >
+                    <span md-highlight-text="query">{{item.name}}</span>
+                </md-autocomplete>
+                <md-chip-template>
+										        <span>
+										          <strong>{{$chip.name}}</strong>
+										        </span>
+                </md-chip-template>
+            </md-chips>
+        </div>
+    </div>
+    <div hide show-xs ng-show="vm.nonprofitsLength > 0" id="sidebar-found-nonprofits"> We found
+        <ng-pluralize count="vm.nonprofitsLength"
+                      when-one=" {{vm.nonprofitsLength}} nonprofit"
+                      when-other=" {{vm.nonprofitsLength}} nonprofits"
+        >
+        </ng-pluralize>
+    </div>
+    <md-item hide show-xs ng-show="vm.nonprofitsLength == 0" id="sidebar-found-nonprofits">
+        Your search did not return any results
+        <ul>
+            <li>Check for spelling errors</li>
+            <li>Try to filter by categories</li>
+        </ul>
+    </md-item>
+</div>
